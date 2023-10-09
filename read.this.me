@@ -1,0 +1,44 @@
+read me explained 
+
+Firstly, the createEmployeeRecord and createEmployeeRecords
+ functions are responsible for creating individual employee records 
+ and an array of employee records, respectively. They don't involve the use of this,
+  so there's no need to worry about the context in these functions.
+
+The createTimeInEvent, createTimeOutEvent, hoursWorkedOnDate, wagesEarnedOnDate,
+ allWagesFor, findEmployeeByFirstName, and calculatePayroll functions do use this. 
+ Here's how this is correctly handled in these functions:
+
+createTimeInEvent and createTimeOutEvent: These functions directly modify the timeInEvents
+ and timeOutEvents arrays of the employee object passed to them. Since they are methods 
+ operating on an object, they can use this to refer to the object being acted upon.
+
+hoursWorkedOnDate and wagesEarnedOnDate: These functions take an employee object as an
+ argument and perform calculations based on the timeInEvents and timeOutEvents properties 
+ of that object. Since they are not methods of the employee object, they don't use this. 
+ Instead, they receive the employee object as a parameter.
+
+allWagesFor: This function is designed to be a method of an employee object. In JavaScript,
+this inside a function refers to the object the function is a property of. Here, allWagesFor 
+is intended to be added as a property to employee objects. When it's called as a method of an
+employee object (like in the commented-out code at the end of your snippet), this inside 
+allWagesFor refers to that employee object.
+
+findEmployeeByFirstName: This function doesn't use this at all. It simply takes an array
+ of employee objects and a first name as parameters and returns the first employee object 
+ with a matching first name.
+
+calculatePayroll: Similar to findEmployeeByFirstName, this function doesn't use this. It takes
+ an array of employee objects as a parameter and calculates the total payroll based on the 
+ data in these objects.
+
+Regarding the .bind(this) usage in the payable calculation in the allWagesFor function, 
+it ensures that the this context inside the wagesEarnedOnDate function, which is called within
+ the reduce function, refers to the employee object. The .bind(this) part preserves the 
+ context of the outer function (allWagesFor), allowing it to correctly access the employee's 
+ timeInEvents and timeOutEvents properties.
+
+In summary, this is used appropriately in the given code, ensuring that functions 
+operate on the correct objects and properties. The use of .bind(this) ensures that 
+the context is preserved when functions are passed as arguments to higher-order functions
+ like reduce.
